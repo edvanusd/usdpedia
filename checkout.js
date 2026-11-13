@@ -1,6 +1,6 @@
 const ownCatalog=[{id:1,price:4748100},{id:2,price:10449810},{id:3,price:1899050},{id:4,price:2089810},{id:5,price:3419810},{id:6,price:12920}];
 let cart=[];
-try{cart=JSON.parse(localStorage.getItem('usdpedia-cart')||'[]').filter(p=>ownCatalog.some(c=>c.id===p.id)&&Number.isInteger(p.quantity)&&p.quantity>0&&p.quantity<=5);}catch{}
+try{cart=JSON.parse(localStorage.getItem('usdpedia-cart')||'[]').filter(p=>(ownCatalog.some(c=>c.id===p.id)||(Number.isInteger(p.id)&&p.id>=1000))&&Number.isInteger(p.quantity)&&p.quantity>0&&p.quantity<=5);}catch{}
 let checkoutKey='',checkoutBusy=false;
 const apiBase=()=>String(window.USDPEDIA_PAYMENT_API||'').replace(/\/$/,'');
 const paymentConfigured=()=>Boolean(apiBase())||!location.hostname.endsWith('github.io');

@@ -4,6 +4,8 @@ Implementasi UI/UX interaktif berdasarkan **PRD-Mobile-Application.pdf**. Antarm
 
 ## Cakupan yang berfungsi
 
+- **Kelola produk:** tambah, ubah, hapus, draft/aktif, kategori, deskripsi, foto terkompresi, dan harga rupiah. Maksimal 50 produk tambahan. Disimpan lokal per browser, bukan katalog server bersama. Produk aktif muncul di Toko USDpedia dan keranjang; checkout produk lokal ditahan sampai SKU dan harga diterbitkan secara aman melalui backend admin. Tidak ada autentikasi admin pada menu lokal ini.
+
 - Beranda dengan produk pilihan, kategori, insight harga, dan preferensi pembayaran.
 - Pencarian produk/merek, filter kategori, serta urutan harga dan penghematan.
 - **Harga standar:** panel samping glass, urutan harga naik, harga tiap toko, status stok, estimasi pengiriman, ongkir, dan CTA kontekstual.
