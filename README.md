@@ -13,12 +13,14 @@ Implementasi UI/UX interaktif berdasarkan **PRD-Mobile-Application.pdf**. Antarm
 - Pengelolaan preferensi kredit/debit/UPI/wallet, nama panggilan, kode pos, notifikasi, pilihan privasi, serta penghapusan data lokal.
 - Walkthrough empat langkah, menu asisten floating, FAQ, serta penyimpanan masukan lokal.
 - Tata letak desktop/tablet/mobile, navigasi seluler, keyboard shortcut pencarian, Escape, focus trap dialog, label aksesibel, dan reduced-motion.
+- **Toko USDpedia:** katalog merchant sandbox terpisah, keranjang, kuantitas, ongkir, data pengiriman contoh, checkout, dan daftar pesanan.
+- **Backend Midtrans Sandbox:** pembuatan Snap hosted checkout, harga server, idempotensi, bearer token order, verifikasi signature SHA-512 dan status API, serta persistensi SQLite. Aktivasi merchant dan hosting backend masih diperlukan.
 
 ## Batasan penting
 
-Ini adalah **preview web, bukan APK Android atau aplikasi produksi**. Semua harga, promo, ketersediaan, review, aktivitas, dan kebijakan toko merupakan data contoh. Tombol beli membuka ringkasan simulasi, bukan checkout atau tautan affiliate. Notifikasi bukan push native. Mengubah lokasi tidak mengubah ongkir data contoh. Tombol perbarui hanya memuat ulang tampilan data contoh, bukan mengambil harga live.
+Ini adalah **aplikasi web sandbox, bukan APK Android atau aplikasi produksi**. Semua harga, promo, ketersediaan, review, aktivitas, dan kebijakan toko merupakan data contoh. Tombol beli membuka checkout katalog milik USDpedia, bukan transaksi ke platform pembanding atau tautan affiliate. Notifikasi bukan push native. Mengubah lokasi tidak mengubah ongkir data contoh. Tombol perbarui hanya memuat ulang tampilan data contoh, bukan mengambil harga live.
 
-Penyimpanan menggunakan `localStorage` browser. Tidak ada akun, backend, database server, proses scraping, pembayaran, analitik, enkripsi Keystore, atau pengiriman laporan. Jangan memasukkan data kartu nyata. UI hanya meminta bank dan empat digit terakhir; tidak meminta nomor kartu lengkap, CVV, PIN, atau tanggal kedaluwarsa.
+Preferensi dan keranjang menggunakan `localStorage`; token akses order memakai `sessionStorage` tab. Backend pesanan SQLite sudah tersedia tetapi belum dihosting/dihubungkan ke Midtrans merchant. **GitHub Pages tetap frontend saja; checkout tidak dapat menghasilkan pembayaran tanpa backend dan Server Key sandbox.** Tidak ada akun, scraping, pembayaran production, analitik, enkripsi Keystore, atau pengiriman laporan. Jangan memasukkan data pribadi/kartu nyata. Lihat **PAYMENT-SETUP.md** untuk aktivasi merchant, deployment backend, konfigurasi environment rahasia, dan batasan keamanan.
 
 ## Struktur
 
@@ -26,6 +28,10 @@ Penyimpanan menggunakan `localStorage` browser. Tidak ada akun, backend, databas
 - `styles.css`: token desain, komponen, responsivitas, dan aksesibilitas visual.
 - `app.js`: katalog contoh, state, promo engine, interaksi, dan persistensi lokal.
 - `assets/`: ilustrasi produk SVG lokal. Tidak membutuhkan layanan gambar eksternal.
+- `checkout.js` / `checkout.css`: toko, keranjang, formulir checkout, dan pesanan.
+- `payment-config.js`: origin HTTPS backend publik; tidak berisi secret.
+- `backend/`: server Node.js 22, katalog merchant, tes keamanan, SQLite, Dockerfile, dan contoh environment.
+- `_config.yml`: mengecualikan backend dari output GitHub Pages.
 
 Tidak ada dependency JavaScript, proses build, atau bundler. Sajikan folder ini sebagai situs statis. Google Fonts digunakan untuk Manrope dan Plus Jakarta Sans; tersedia fallback font sistem apabila jaringan tidak tersedia.
 
@@ -41,7 +47,7 @@ Tidak ada dependency JavaScript, proses build, atau bundler. Sajikan folder ini 
 | Akun | Nama lokal | OAuth 2.0, backend Node/FastAPI, PostgreSQL |
 | Pembayaran | Preferensi lokal | Android Keystore, offer API, penilaian PCI dan consent |
 | Notifikasi | Evaluasi target data contoh | WorkManager, push, pemantauan harga/stok, WebSocket bila diperlukan |
-| Pembelian | Ringkasan simulasi | Deep link produk tepat, informasi affiliate, validasi harga final |
+| Pembelian | Checkout toko sendiri + backend Midtrans Sandbox (belum aktif merchant) | Hosting HTTPS, sandbox key, webhook; audit production, stok, fulfillment, akun |
 | Privasi | Reset localStorage | Kebijakan privasi, granular consent, mekanisme penghapusan data server |
 
 Target performa PRD (load <2 s, overlay <500 ms, fetch <3–5 s, scroll 60 FPS) belum disertifikasi dengan pengujian perangkat Android atau API produksi.

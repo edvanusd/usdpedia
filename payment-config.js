@@ -1,0 +1,1 @@
+window.USDPEDIA_PAYMENT_API = '';

@@ -1,0 +1,1 @@
+{"name":"usdpedia-sandbox-backend","private":true,"type":"module","version":"1.0.0","engines":{"node":">=22.13"},"scripts":{"start":"node --env-file-if-exists=.env server.mjs","test":"node --test server.test.mjs"}}

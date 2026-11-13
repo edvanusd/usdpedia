@@ -1,0 +1,4 @@
+exclude:
+  - backend
+  - Dockerfile
+  - PAYMENT-SETUP.md
